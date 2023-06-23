@@ -1,0 +1,141 @@
+<div class="page-container main-page-padding">
+  <h1 class="h1 text-center mb-54">
+    {{ page.title | escape }}
+  </h1>
+  <div class="text page-content-max-width text-center">
+    {{ page.content }}
+  </div>
+  <div class="ingredients-list">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'ingredient' %}
+          <div class="ingredient-item" {{ block.shopify_attributes }}>
+            <div>
+              <h2 class="h2 mb-24">{{ block.settings.title }}</h2>
+              <p class="text mb-8">{{ block.settings.description }}</p>
+            </div>
+            <div>
+              {% if block.settings.product1 != blank or block.settings.product2 != blank or  block.settings.product3 != blank %}
+                <h3 class="text-16-bold mb-8">Used in</h3>
+                {% if block.settings.product1 != blank %}
+                  <a class="link-inline" href="/products/{{ block.settings.product1.handle }}">{{ block.settings.product1.title }}</a>
+                {% endif %}
+                {% if block.settings.product2 != blank %}
+                  <a class="link-inline" href="/products/{{ block.settings.product2.handle }}">{{ block.settings.product2.title }}</a>
+                {% endif %}
+                {% if block.settings.product3 != blank %}
+                  <a class="link-inline" href="/products/{{ block.settings.product3.handle }}">{{ block.settings.product3.title }}</a>
+                {% endif %}
+              {% endif %}
+            </div>
+          </div>
+      {% endcase %}
+    {% endfor %}
+    </div>
+</div>
+
+{% style %}
+.ingredients-list, 
+.ingredients-list * {
+  box-sizing: border-box;
+}
+.ingredients-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(476px, auto);
+  width: 100%;
+  border-left: 1px solid var(--volcano);
+  border-top: 1px solid var(--volcano);
+  margin-top: 146px;
+}
+@media (min-width: 801px) {
+  .ingredients-list {
+    margin-top: 146px;
+  }
+}
+@media (max-width: 800px) {
+  .ingredients-list {
+    grid-template-columns: 100%;
+    grid-auto-rows: auto;
+    overflow: hidden;
+    margin-top: 100px;
+  }
+}
+
+.ingredients-list .ingredient-item {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--volcano);
+  background: #fff;
+  transition: .3s ease all;
+  padding: 40px;
+}
+
+@media (min-width: 801px) {
+  .ingredients-list .ingredient-item {
+    padding: 40px;
+  }
+}
+@media (max-width: 800px) {
+  .ingredients-list .ingredient-item {
+    padding: 40px 30px 40px 20px;
+  }
+  .ingredients-list .ingredient-item > *:nth-child(2) {
+    margin-top: 40px;
+  }
+}
+
+.ingredients-list .ingredient-item:hover {
+  background: var(--sulfur);
+}
+
+.ingredients-list .ingredient-item {
+  border-left-width: 0;
+  border-top-width: 0;
+}
+
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Page",
+  "blocks": [
+    {
+      "name": "Ingredient",
+      "type": "ingredient",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Name"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "product",
+          "id": "product1",
+          "label": "Linked Product 1"
+        },
+        {
+          "type": "product",
+          "id": "product2",
+          "label": "Linked Product 2"
+        },
+        {
+          "type": "product",
+          "id": "product3",
+          "label": "Linked Product 3"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

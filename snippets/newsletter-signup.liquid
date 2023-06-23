@@ -1,0 +1,26 @@
+{%- form 'customer', id: 'ContactFooter' -%}
+    <input type="hidden" name="contact[tags]" value="newsletter">
+    <div>
+      <div class="flex-row newsletter-input">
+        <label for="NewsletterForm--{{ section.id }}" class="visually-hidden">
+         Email
+        </label>
+        <input id="NewsletterForm--{{ section.id }}" type="email" name="contact[email]" 
+          value="{{ form.email }}" aria-required="true" autocorrect="off" autocapitalize="off" autocomplete="email"
+          {% if form.errors %} autofocus aria-invalid="true" aria-describedby="ContactFooter-error" {% elsif
+          form.posted_successfully? %} aria-describedby="ContactFooter-success" {% endif %}
+          placeholder="Email *" required>
+        <button type="submit" name="commit" id="Subscribe"
+          aria-label="Subscribe to newsletter" class="btn-square margin-left-sm">
+          Subscribe
+        </button>
+      </div>
+      {%- if form.errors -%}
+          <small id="ContactFooter-error mt-8">{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}</small>
+      {%- endif -%}
+    </div>
+    {%- if form.posted_successfully? -%}
+      <h3 id="ContactFooter-success" class="mt-8 text" tabindex="-1" autofocus>Thanks for subscribing!</h3>
+    {%- endif -%}
+  {%- endform -%}
+

@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "product-hero": {
+      "type": "product-hero",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {}
+    },
+    "why_it_works": {
+      "type": "product-why-it-works",
+      "settings": {
+        "always": "Esthetician-developed\nMade in the USA\nVegan-friendly\nPlant-based\nCruelty-free\nNo plastic beads"
+      }
+    },
+    "testimonial": {
+      "type": "product-testimonial",
+      "settings": {}
+    },
+    "review_cards": {
+      "type": "product-review-cards",
+      "settings": {}
+    }
+  },
+  "order": [
+    "product-hero",
+    "reviews",
+    "why_it_works",
+    "testimonial",
+    "review_cards"
+  ]
+}

@@ -1,0 +1,165 @@
+{%- assign product_form_id = 'product-form-' | append: section.id -%}
+
+<div class="main-product">
+    <div class="hero-wrapper">
+        <div class="gallery-wrapper">
+            {% render 'product-gallery', images: product.images %}
+        </div>
+        <div class="text-wrapper">
+
+            <a href="/collections/catalog" class="back-button text-tiny link-plain flex-row flex-align-center mb-24">
+                {%- render 'icon-back' -%} <span class="ml-1ch"> Back</span>
+            </a>
+
+            <h1 class="h1 mb-4">{{ product.title }}</h1>
+            
+            {%- if product.metafields.custom.subheadline != blank -%}
+                <h2 class="text-product-subheading mb-4">{{ product.metafields.custom.subheadline }}</h2>
+            {%- endif %}
+            {%- if product.metafields.custom.size != blank and product.metafields.custom.size != 0 -%}
+                <p class="text-product-size mb-4">{{ product.metafields.custom.size }}</p>
+            {%- endif -%}
+
+            
+            <a class="rating mb-4" href="#reviews">
+                {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false, product: product %}
+            </a>
+
+            {% if product.variants.size > 1 %}
+                <div class="flex-row mb-24">
+                    <variant-selects class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url }}" {{ block.shopify_attributes }}>
+                    {%- for option in product.options_with_values -%}
+                    <div class="product-form__input product-form__input--dropdown">
+                        <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                        {{ option.name }}
+                        </label>
+                        <div class="select">
+                        <select id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                            class="select__select"
+                            name="options[{{ option.name | escape }}]"
+                            form="{{ product_form_id }}"
+                        >
+                            {%- for value in option.values -%}
+                            <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
+                                {{ value }}
+                            </option>
+                            {%- endfor -%}
+                        </select>
+                        </div>
+                    </div>
+                    {%- endfor -%}
+
+                        <script type="application/json">
+                        {{ product.variants | json }}
+                        </script>
+                    </variant-selects>
+                </div>
+            {% endif %}
+
+            <div class="text mb-24 rte">{{ product.description }}</div>
+
+            {% if product.tags.size > 0 %}
+                <h3 class="text-small-bold mb-4">Ingredients</h3>
+                <p class="ingredient-list-commas mb-24">
+                    {% for tag in product.tags %}
+                        {% if tag contains 'ingredient-' %}
+                         <a href="/pages/ingredients" class="link-inline">{{ tag | replace: 'ingredient-', "" }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            {% if product.metafields.custom.made_for_2 != blank %}
+                <h3 class="text-small-bold mb-4">Made for</h3>
+                <p class="link-inline mb-24">{{ product.metafields.custom.made_for_2 | replace: ',', ', ' | replace: '"', '' | replace: '[', '' | replace: ']', '' }}</p>
+            {% endif %}
+
+            {% render 'product-accordion', metafields: product.metafields.custom %}
+
+        </div>
+    </div>
+</div>
+
+
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+
+{% if product.variants.size > 1 %}
+    {% render 'product-add-to-cart-variants', product: product %}
+{% else %}
+    {% render 'product-add-to-cart', product: product %}
+{% endif %}
+  
+{% style %} 
+.main-product .hero-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    padding-bottom: 100px;
+}
+
+@media (min-width: 800px) {
+    .main-product .gallery-wrapper {
+        height: calc(100vh   - 96px - 78px);
+    }
+}
+
+@media (max-height: 600px) and (min-width: 800px) {
+    .main-product .gallery-wrapper {
+        height: 800px;
+    }
+}
+@media (max-width: 800px) {
+    .main-product .hero-wrapper {
+        grid-template-columns: 100%;
+        grid-template-rows: 60vh auto;
+    }
+}
+
+.main-product .gallery-wrapper img {
+    max-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+} 
+
+@media (max-width: 800px) {
+    .main-product .gallery-wrapper img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+
+.main-product .text-wrapper {
+    padding: 32px 80px;
+}
+
+@media (min-width: 800px) {
+    .main-product .text-wrapper {
+       max-width: 700px;
+       margin-right: auto;
+    }
+}
+@media (max-width: 800px) {
+    .main-product .text-wrapper {
+        padding: 32px 5%;
+    }
+}
+
+.main-product .ingredient-list-commas a:not(:last-child)::after {
+    content: ', ';
+    margin-right: 2px;
+    display: inline-block;
+}
+.main-product .rating .jdgm-prev-badge__text {
+    display: none;
+}
+
+body.template-product {
+    padding-bottom: 78px;
+}
+{% endstyle %}
+
+
