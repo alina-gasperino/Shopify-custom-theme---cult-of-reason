@@ -362,7 +362,7 @@ label {
     display: none;
 }
 
-.product-form.form-wrapper:not(.disabled):hover {
+.product-form.form-wrapper:not(.disabled):hover, .link-hover:not(.disabled):hover {
     background: var(--sulfur);
     color: var(--volcano);
 }
