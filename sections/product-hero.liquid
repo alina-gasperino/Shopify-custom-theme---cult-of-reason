@@ -1,4 +1,11 @@
 {%- assign product_form_id = 'product-form-' | append: section.id -%}
+{% assign is_coming_soon = false %}
+
+{% for tag in product.tags %}
+    {% if tag contains 'coming-soon' %}
+      {% assign is_coming_soon = true %}
+    {% endif %}
+{% endfor %}
 
 <div class="main-product">
     <div class="hero-wrapper">
@@ -58,6 +65,35 @@
 
             <div class="text mb-24 rte">{{ product.description }}</div>
 
+            <div class="bg-dark link-hover mb-24 {% if product.selected_or_first_available_variant.available == false or is_coming_soon == true %}disabled{% endif %}">
+
+                <product-form class="">
+                    {%- form 'product', product, data-productid: product.id, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                      <input type="hidden" name="id" data-productid="{{ product.id }}" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+                      <div class="product-form__buttons">
+                        <button
+                          type="submit"
+                          name="add"
+                          class="product-form__submit button button--full-width" {% if product.selected_or_first_available_variant.available == false or is_coming_soon == true %}disabled{% endif %}
+                        >
+                            <div class="flex-row">
+                                <span>
+                                {%- if product.selected_or_first_available_variant.available and is_coming_soon == false -%}
+                                    Add to Cart
+                                {%- elsif is_coming_soon -%}
+                                    Coming Soon
+                                {%- else -%}
+                                    Sold Out
+                                {%- endif -%}
+                                </span>
+                            </div>
+                            <div class="loading-overlay__spinner hidden"></div>
+                        </button>            
+                      </div>
+                    {%- endform -%}
+                </product-form>      
+              </div>
+
             {% if product.tags.size > 0 %}
                 <h3 class="text-small-bold mb-4">Ingredients</h3>
                 <p class="ingredient-list-commas mb-24">
@@ -95,6 +131,10 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
     padding-bottom: 100px;
+}
+.product-form__buttons {
+    text-align: center;
+    padding: 10px 0;
 }
 
 @media (min-width: 800px) {
