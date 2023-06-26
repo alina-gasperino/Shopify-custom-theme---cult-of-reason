@@ -6,6 +6,7 @@ console.log('animation yay')
     const img = page.querySelector('.bg-img');
     const heading = page.querySelector('h1');
     const text = page.querySelector('h2');
+    const heading3 = page.querySelector('h3');
 
     gsap.set(img, {
       y: page.offsetHeight > window.innerHeight ? page.offsetHeight : window.innerHeight,
@@ -23,13 +24,18 @@ console.log('animation yay')
       autoAlpha: 0
     })
 
+    gsap.set(heading3, {
+      y: (window.innerHeight - heading3.offsetHeight) / 2 + heading3.offsetHeight,
+      autoAlpha: 0
+    })
+
     let tl = gsap.timeline({
       defaults: { 
         duration: 1,
         ease: "power3.out" 
       },
     });
-    tl.to(img, {y: 0, autoAlpha: 1, duration: 1}).to(heading, {y: 0, autoAlpha: 1}, "-=.3").to(text, {y: 0, autoAlpha: 1}, "-=.3"); 
+    tl.to(img, {y: 0, autoAlpha: 1, duration: 1}).to(heading, {y: 0, autoAlpha: 1}, "-=.3").to(text, {y: 0, autoAlpha: 1}, "-=.3").to(heading3, {y: 0, autoAlpha: 1}, "-=.3"); 
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -40,8 +46,8 @@ console.log('animation yay')
 <div class="page-container" id="pageIndex">
   <div class="gsap-animate-in bg-img"></div>
   <h1 class="gsap-animate-in h1 text-center mb-24">{{ section.settings.heading }}</h1>
-  <h2 class="gsap-animate-in large-text text-center">{{ section.settings.text }}</h2>
-
+  <h2 class="gsap-animate-in large-text text-center mb-24">{{ section.settings.text }}{{section.settings.link_text}}</a></h2>
+  <h3 class="gsap-animate-in large-text text-center"><a href="{{section.settings.link}}">{{section.settings.link_text}}</a></h3>
   <div class="index-main-button bg-dark marquee">
     <a href="/collections/catalog" class="flex-row link-plain marquee_inner">
         {%- for item in (1..4) -%}
@@ -224,6 +230,17 @@ body.template-index .page-container {
       "id": "text2",
       "default": "Always plant-based, vegan, cruelty-free, and made in the USA",
       "label": "Bottom Text"
+    },
+    {
+      "id": "link_text",
+      "type": "text",
+      "label": "Button",
+      "default": "Learn more"
+    },
+    {
+      "id": "link",
+      "type": "url",
+      "label": "Link"
     }
   ]
 }

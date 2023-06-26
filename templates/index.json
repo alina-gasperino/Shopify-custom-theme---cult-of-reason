@@ -4,9 +4,12 @@
       "type": "main-index",
       "settings": {
         "bg_img": "shopify:\/\/shop_images\/image_bg.jpg",
+        "bg_alignment": "middle",
         "heading": "Clean, simple, effective esthetician-formulated skincare.",
         "text": "Meet your skin’s new best friends.",
-        "text2": "Always plant-based, vegan, cruelty-free, and made in the USA"
+        "text2": "Always plant-based, vegan, cruelty-free, and made in the USA",
+        "link_text": "Shop",
+        "link": "shopify:\/\/collections\/all"
       }
     }
   },
