@@ -48,7 +48,7 @@ console.log('animation yay')
   <h1 class="gsap-animate-in h1 text-center mb-24">{{ section.settings.heading }}</h1>
   <h2 class="gsap-animate-in large-text text-center mb-24">{{ section.settings.text }}{{section.settings.link_text}}</a></h2>
   <h3 class="gsap-animate-in large-text flex-centered flex-row">
-    <a href="{{section.settings.link}}" class="bg-dark link-hover p-14">{{section.settings.link_text}}</a>
+    <a href="{{section.settings.link}}" class="bg-gray link-hover p-14">{{section.settings.link_text}}</a>
   </h3>
   <div class="index-main-button bg-dark marquee">
     <a href="/collections/catalog" class="flex-row link-plain marquee_inner">
@@ -131,7 +131,10 @@ body.template-index .page-container {
 .p-14 {
   padding: 10px 40px;
 }
-
+.bg-gray.link-hover.p-14 {
+  background: #dde0e5;
+  color: #000;
+}
 
 @keyframes marqueeOne {
 	0% {

@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "ba7a9156-de10-48b5-9a1b-ffb49d9e9148": {
+      "type": "blog-posts",
+      "settings": {
+        "title": "",
+        "blog": "cult-of-reason-blog",
+        "post_limit": 3,
+        "blog_show_tags": false,
+        "blog_show_date": true,
+        "blog_show_comments": false,
+        "blog_show_author": false,
+        "view_all": true,
+        "blog_image_size": "wide",
+        "divider": false
+      }
+    }
+  },
+  "order": [
+    "ba7a9156-de10-48b5-9a1b-ffb49d9e9148"
+  ]
+}
