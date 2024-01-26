@@ -5,13 +5,14 @@ function initSwiper() {
         direction: 'vertical',
         keyboard: {
             enabled: true,
-            onlyInViewport: false,
+            onlyInViewport: true,
         },
         // Navigation arrows
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+        touchReleaseOnEdges: true,
     });
 
 

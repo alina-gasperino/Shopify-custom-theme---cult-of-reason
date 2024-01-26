@@ -18,7 +18,7 @@
   {% endif %}
 {% endfor %}
 
-<div class="product-form form-wrapper bg-dark flex-row link-hover {% if product.selected_or_first_available_variant.available == false or is_coming_soon == true %}disabled{% endif %}">
+<div class="product-form form-wrapper bg-sulfur flex-row link-hover border-top {% if product.selected_or_first_available_variant.available == false or is_coming_soon == true %}disabled{% endif %}">
 
     <product-form class="product-form">
         {%- form 'product', product, data-productid: product.id, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}

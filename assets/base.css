@@ -323,8 +323,8 @@ label {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: var(--volcano);
-    color: #fff;
+    /* background: var(--volcano); */
+    /* color: #fff; */
     transition: .3s ease all;
 }
 
@@ -357,14 +357,18 @@ label {
     flex-direction: column;
 }
 
+.product-form.product-form-wrapper .border-top{
+  border-top: solid 1px var(--volcano)
+}
+
 
 .product-form .loading-overlay__spinner {
     display: none;
 }
 
 .product-form.form-wrapper:not(.disabled):hover, .link-hover:not(.disabled):hover {
-    background: var(--sulfur);
-    color: var(--volcano);
+    background: var(--volcano);
+    color: var(--powder);
 }
 
 .product-form.form-wrapper.disabled {
